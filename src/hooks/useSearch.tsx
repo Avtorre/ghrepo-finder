@@ -10,7 +10,7 @@ const useSearch = () => {
   const [error, setError] = useState()
   const graphqlWithAuth = graphql.defaults({
     headers: {
-      authorization:`Bearer ${process.env.REACT_APP_GH_TOKEN}`,
+      authorization:`token ${process.env.REACT_APP_GH_TOKEN}`,
     }
   })
 

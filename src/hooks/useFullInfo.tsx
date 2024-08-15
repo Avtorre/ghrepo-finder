@@ -13,10 +13,10 @@ const useFullInfo = () => {
     }
   })
 
-  const getInfo: (query: string) => Promise<SearchResult> = async(query:string) =>{
+  const getInfo: (props: {repo: string, owner: string}) => Promise<SearchResult> = async(props: {repo: string, owner: string}) =>{
     return await graphqlWithAuth(`
     {
-      repository(name: "internetlab-task", owner: "avtorre") {
+      repository(name: "${props.repo}", owner: "${props.owner}") {
         description
         repositoryTopics(first: 100) {
           nodes {

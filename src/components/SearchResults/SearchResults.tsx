@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { RepoItem } from '../../lib/types';
+import { InfoResult, RepoInfo, RepoItem } from '../../lib/types';
 import classes from './SearchResults.module.css'
+import { RootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import useFullInfo from '../../hooks/useFullInfo';
+import { setCurrent } from '../../store/currentStore/currentReducer';
 
 //компонент, в котором будут отображаться результаты поиска
 const SearchResults = (props: {results: RepoItem[]}) => {
@@ -13,6 +17,27 @@ const SearchResults = (props: {results: RepoItem[]}) => {
     {field: 'stars', headerName: 'Число звёзд', resizable: false, disableColumnMenu: true, flex: 300},
     {field: 'date', headerName: 'Дата обновления', resizable: false, disableColumnMenu: true, flex: 300},
   ]
+  const dispatch = useDispatch()
+  const current: RepoInfo = useSelector((state: RootState) => state.current)
+  const {getInfo} = useFullInfo()
+
+  const info = async (props: {repo: string, owner: string}) => {
+    console.log('props', props)
+    let resp:InfoResult
+    await getInfo({repo: props.repo, owner: props.owner}).then((data: any) => {
+      let topics = ['']
+      resp = data.repository
+      console.log('resp', resp)
+      resp.repositoryTopics.nodes.map((t) => {
+        topics.push(t)
+      })
+      dispatch(setCurrent({description: resp.description, topics: topics}))
+    })
+  }
+
+  useEffect(()=>{
+    console.log('current', current)
+  }, [current])
 
   return (
     <div className={classes.search}>
@@ -36,12 +61,15 @@ const SearchResults = (props: {results: RepoItem[]}) => {
               border: 0, //убираем верхнюю границу футера таблицы
             }
           }}
-          onRowClick={(params) => {console.log('params', params)}}
+          onRowClick={(params) => info({repo: params.row.name, owner: params.row.owner})}
           
         />
       </div>
       <div className={classes.side_window}>
-          Выберите репозиторий
+          {(current.description) || (current.topics)
+            ? `${current.description}`
+            : 'Выберите репозиторий'
+          }
       </div>
     </div>
   )

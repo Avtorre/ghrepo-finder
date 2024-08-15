@@ -5,7 +5,7 @@ import { Button } from '@mui/material'
 import useSearch from '../../hooks/useSearch'
 import { RepoItem, SearchResult } from '../../lib/types'
 import { useDispatch } from 'react-redux'
-import { setRepos } from '../../store/commentStore/repoReducer'
+import { setRepos } from '../../store/repoStore/repoReducer'
 
 const Header = () => {
   const [query, setQuery] = useState('')

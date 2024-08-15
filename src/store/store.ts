@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import repoReducer from "./commentStore/repoReducer";
+import repoReducer from "./repoStore/repoReducer";
+import currentReducer from "./currentStore/currentReducer";
 
 //стандартный шаблон инициализации redux'a 
 export const store = configureStore({
     reducer: {
       repos: repoReducer,
+      current: currentReducer
     }
 })
 

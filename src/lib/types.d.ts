@@ -28,13 +28,13 @@ export type SearchResult = {
 
 //тип данных, отображаемых в боковом окне при выборе репозитория
 export type RepoInfo = {
-  desription: string,
+  description: string | null,
   topics: string[]
 }
 
 //тип данных, получаемых от API при загрузку дополнительной информации о репозитории
 export type InfoResult = {
-  desription: string | null,
+  description: string | null,
   repositoryTopics: {
     nodes: string[]
   }

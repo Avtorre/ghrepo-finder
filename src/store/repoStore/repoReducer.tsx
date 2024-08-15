@@ -6,7 +6,7 @@ import { RepoItem } from "../../lib/types"
 const initialState: RepoItem[] = []
 
 const repoSlice = createSlice({
-    name:'comments', 
+    name:'repos', 
     initialState,
     reducers: {
       //reducer, присваивающий новое значение 
