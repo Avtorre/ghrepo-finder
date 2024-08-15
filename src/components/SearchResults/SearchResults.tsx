@@ -6,6 +6,7 @@ import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import useFullInfo from '../../hooks/useFullInfo';
 import { setCurrent } from '../../store/currentStore/currentReducer';
+import SideWindow from '../SideWindow/SideWindow';
 
 //компонент, в котором будут отображаться результаты поиска
 const SearchResults = (props: {results: RepoItem[]}) => {
@@ -21,19 +22,22 @@ const SearchResults = (props: {results: RepoItem[]}) => {
   const current: RepoInfo = useSelector((state: RootState) => state.current)
   const {getInfo} = useFullInfo()
 
-  const info = async (props: {repo: string, owner: string}) => {
+  const info = async (row: RepoItem) => {
     console.log('props', props)
     let resp:InfoResult
-    await getInfo({repo: props.repo, owner: props.owner}).then((data: any) => {
-      let topics = ['']
+    await getInfo(row).then((data: any) => {
+      let topics:string[] = []
       resp = data.repository
       console.log('resp', resp)
       resp.repositoryTopics.nodes.map((t) => {
-        topics.push(t)
+        if (t.topic.name.length) {
+          topics.push(t.topic.name)
+        }
+        console.log('t', t.topic.name)
       })
-      dispatch(setCurrent({description: resp.description, topics: topics}))
+      dispatch(setCurrent({...row, description: resp.description, topics: topics}))
     })
-  }
+  } 
 
   useEffect(()=>{
     console.log('current', current)
@@ -61,13 +65,13 @@ const SearchResults = (props: {results: RepoItem[]}) => {
               border: 0, //убираем верхнюю границу футера таблицы
             }
           }}
-          onRowClick={(params) => info({repo: params.row.name, owner: params.row.owner})}
+          onRowClick={(params) => info(params.row)}
           
         />
       </div>
       <div className={classes.side_window}>
           {(current.description) || (current.topics)
-            ? `${current.description}`
+            ?  <SideWindow repo= {current}/> //`${current.description}`
             : 'Выберите репозиторий'
           }
       </div>

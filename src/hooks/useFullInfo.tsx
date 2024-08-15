@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
-import { SearchResult } from '../lib/types'
+import { RepoInfo, RepoItem, SearchResult } from '../lib/types'
 
 //для отпрваки запросов используется официальная библиотека GH (octokit) для работы с их API 
 const useFullInfo = () => {
@@ -13,10 +13,10 @@ const useFullInfo = () => {
     }
   })
 
-  const getInfo: (props: {repo: string, owner: string}) => Promise<SearchResult> = async(props: {repo: string, owner: string}) =>{
+  const getInfo: (row: RepoItem) => Promise<SearchResult> = async(row: RepoItem) =>{
     return await graphqlWithAuth(`
     {
-      repository(name: "${props.repo}", owner: "${props.owner}") {
+      repository(name: "${row.name}", owner: "${row.owner}") {
         description
         repositoryTopics(first: 100) {
           nodes {

@@ -1,0 +1,20 @@
+.window {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  color: black;
+}
+
+.topics {
+
+}
+
+.chip {
+  display: inline-flex;
+  width: fit-content;
+  margin: 3px;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: .16px;
+  padding: 0px;
+}

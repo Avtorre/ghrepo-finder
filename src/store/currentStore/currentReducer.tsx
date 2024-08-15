@@ -4,8 +4,12 @@ import { RepoInfo, RepoItem } from "../../lib/types"
 
 //задаём тип данных в этом слайсе
 const initialState: RepoInfo = {
-  description: "",
-  topics: []
+  id: "",
+  name: "",
+  forks: 0,
+  stars: 0,
+  date: "",
+  owner: ""
 }
 
 const currentSlice = createSlice({
