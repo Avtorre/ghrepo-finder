@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
 import { SearchResult } from '../lib/types'
 
+
 //для отпрваки запросов используется официальная библиотека GH (octokit) для работы с их API 
 const useSearch = () => {
   const [response, setResponse] = useState<GraphQlQueryResponseData>()
