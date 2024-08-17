@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { InfoResult, RepoInfo, RepoItem } from '../../lib/types';
+import { InfoResult, RepoItem } from '../../lib/types';
 import classes from './SearchResults.module.css'
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,24 +19,32 @@ const SearchResults = (props: {results: RepoItem[]}) => {
     {field: 'date', headerName: 'Дата обновления', resizable: false, disableColumnMenu: true, flex: 300},
   ]
   const dispatch = useDispatch()
-  const current: RepoInfo = useSelector((state: RootState) => state.current)
+  const current: RepoItem = useSelector((state: RootState) => state.current)
   const {getInfo} = useFullInfo()
+  const token: string = useSelector((state: RootState) => state.api.token) 
+  const api: string = useSelector((state: RootState) => state.api.api) 
 
   const info = async (row: RepoItem) => {
     console.log('props', props)
     let resp:InfoResult
-    await getInfo(row).then((data: any) => {
-      let topics:string[] = []
-      resp = data.repository
-      console.log('resp', resp)
-      resp.repositoryTopics.nodes.map((t) => {
-        if (t.topic.name.length) {
-          topics.push(t.topic.name)
-        }
-        console.log('t', t.topic.name)
+    if (api === 'REST') {
+      dispatch(setCurrent({...row}))
+    } 
+    if (api === 'Graph') {
+      await getInfo(row, token).then((data: any) => {
+        let topics:string[] = []
+        resp = data.repository
+        console.log('resp', resp)
+        resp.repositoryTopics.nodes.map((t) => {
+          if (t.topic.name.length) {
+            topics.push(t.topic.name)
+          }
+          console.log('t', t.topic.name)
+        })
+        dispatch(setCurrent({...row, description: resp.description, topics: topics}))
       })
-      dispatch(setCurrent({...row, description: resp.description, topics: topics}))
-    })
+    }
+
   } 
 
   useEffect(()=>{
@@ -72,7 +80,7 @@ const SearchResults = (props: {results: RepoItem[]}) => {
       <div className={classes.side_window}>
           {(current.description) || (current.topics)
             ?  <SideWindow repo= {current}/> //`${current.description}`
-            : 'Выберите репозиторий'
+            :  <p className={classes.side_window__placeholder}>Выберите репозиторий</p>
           }
       </div>
     </div>

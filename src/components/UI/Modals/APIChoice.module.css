@@ -1,0 +1,30 @@
+.modal__window {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: 18%;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  justify-content: space-between;
+  border-radius: 15px;
+  overflow: hidden;
+  align-items: center;
+  padding: 0 15px;
+}
+.modal__window > h3 {
+  width: 100%;
+  border-bottom: 1px solid #4F4F4F;
+  margin-bottom: 0;
+  padding: 0 15px 15px;
+}
+.modal__btn {
+  margin-top: 0;
+  display: flex;
+  gap: 30px;
+  margin: auto;
+}/*# sourceMappingURL=APIChoice.module.css.map */

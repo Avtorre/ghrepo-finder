@@ -1,17 +1,52 @@
 .window {
   display: flex;
   flex-direction: column;
-  max-width: 100%;
+  width: 100%;
   color: black;
+  text-align: left;
+  padding: 24px;
+  align-items: flex-start;
+}
+
+.lang {
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 4px;
+}
+
+.second_line {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.stars {
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.topics {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .chip {
   display: inline-flex;
   width: -moz-fit-content;
   width: fit-content;
-  margin: 3px;
   font-size: 13px;
   line-height: 18px;
   letter-spacing: 0.16px;
-  padding: 0px;
+  padding: 3px 4px;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 143%;
+  letter-spacing: 0.17px;
 }/*# sourceMappingURL=SideWindow.module.css.map */

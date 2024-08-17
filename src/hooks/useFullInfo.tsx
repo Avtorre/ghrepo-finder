@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
 
 import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
-import { RepoInfo, RepoItem, SearchResult } from '../lib/types'
+import { RepoItem, SearchResult } from '../lib/types'
 
 //для отпрваки запросов используется официальная библиотека GH (octokit) для работы с их API 
 const useFullInfo = () => {
   const [response, setResponse] = useState<GraphQlQueryResponseData>()
   const [error, setError] = useState()
-  const graphqlWithAuth = graphql.defaults({
-    headers: {
-      authorization:`Bearer ${process.env.REACT_APP_GH_TOKEN}`,
-    }
-  })
+  
 
-  const getInfo: (row: RepoItem) => Promise<SearchResult> = async(row: RepoItem) =>{
+  const getInfo: (row: RepoItem, token:string) => Promise<SearchResult> = async(row: RepoItem, token:string) =>{
+    const graphqlWithAuth = graphql.defaults({
+      headers: {
+        authorization:`Bearer ${token}`,
+      }
+    })
+    
     return await graphqlWithAuth(`
     {
       repository(name: "${row.name}", owner: "${row.owner}") {

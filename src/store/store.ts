@@ -1,12 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import repoReducer from "./repoStore/repoReducer";
 import currentReducer from "./currentStore/currentReducer";
+import tokenReducer from "./tokenStore/apiReducer";
+import apiReducer from "./tokenStore/apiReducer";
 
 //стандартный шаблон инициализации redux'a 
 export const store = configureStore({
     reducer: {
       repos: repoReducer,
-      current: currentReducer
+      current: currentReducer,
+      api: apiReducer
     }
 })
 

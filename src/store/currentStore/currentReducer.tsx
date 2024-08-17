@@ -1,9 +1,9 @@
 
 import { createSlice } from "@reduxjs/toolkit"
-import { RepoInfo, RepoItem } from "../../lib/types"
+import { RepoItem } from "../../lib/types"
 
 //задаём тип данных в этом слайсе
-const initialState: RepoInfo = {
+const initialState: RepoItem = {
   id: "",
   name: "",
   forks: 0,
@@ -17,7 +17,7 @@ const currentSlice = createSlice({
     initialState,
     reducers: {
       //reducer, присваивающий новое значение 
-      setCurrent: (state, action: {payload: RepoInfo}) => {
+      setCurrent: (state, action: {payload: RepoItem}) => {
         return state =  action.payload
       }
     }

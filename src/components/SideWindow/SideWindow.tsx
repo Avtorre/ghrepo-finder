@@ -1,21 +1,30 @@
 import React from 'react'
 import classes from './SideWindow.module.css'
-import { RepoInfo } from '../../lib/types'
+import { RepoItem } from '../../lib/types'
 import { Chip } from '@mui/material'
 
-const SideWindow = (props : {repo: RepoInfo}) => {
+const SideWindow = (props : {repo: RepoItem}) => {
   return (
     <div className={classes.window}>
       <h1>{props.repo.name}</h1>
-      <h1>{props.repo.lang}</h1>
+      <div className={classes.second_line}>
+        {(props.repo.lang) &&
+          <Chip color='primary' label={props.repo.lang} className={classes.lang}/>
+        }
+        
+        <div className={classes.stars}>
+          <img src={`${process.env.PUBLIC_URL}/StarFilled.svg`} alt="star"/>
+          <p>{props.repo.stars}</p>
+        </div>
+        
+      </div>
       <div className={classes.topics}>
         {props.repo?.topics?.map((t, key) => 
           <Chip key={key} label={t} className={classes.chip}/>
           )
         }
       </div>
-      
-      <h1>{props.repo.description}</h1>
+      <p className={classes.description}>{props.repo.description}</p>
     </div>
   )
 }

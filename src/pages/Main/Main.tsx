@@ -7,11 +7,13 @@ import { graphql, GraphqlResponseError} from '@octokit/graphql'
 import { GraphQlQueryResponseData, GraphQlResponse } from '@octokit/graphql/dist-types/types'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
+import APIChoice from '../../components/UI/Modals/APIChoice'
 
 //основная страница
 //возможно, стоило разместить в папке components, но я создал отдельную папку, т.к. по масштабам этот элемент был больше похож на страницу, чем на встраиваемый компонент
 const Main = () => {
   const results: RepoItem[] = useSelector((state: RootState) => state.repos)
+
   /*
   const {search} = useSearch()
 
@@ -46,6 +48,7 @@ const Main = () => {
 
   return (
     <div className={classes.main}>
+      
       {(results.length)
         ? <SearchResults results={results}/>
         : <h1 className={classes.welcome}>Добро пожаловать</h1>

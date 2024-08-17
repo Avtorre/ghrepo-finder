@@ -1,12 +1,22 @@
 //тип содержащий отображаемую информацию найденных репозиториев
 export type RepoItem = {
-  id: string,
+/*  id: string,
   name: string,
   lang?: string,
   forks: number, 
   stars: number,
   date: string,
   owner: string
+  */
+  id: string,
+  name: string,
+  lang?: string,
+  forks: number, 
+  stars: number,
+  date: string,
+  owner: string,
+  description?: string | null,
+  topics?: string[]
 }
 
 //тип данных, получаемых от API
@@ -27,7 +37,7 @@ export type SearchResult = {
 }
 
 //тип данных, отображаемых в боковом окне при выборе репозитория
-export type RepoInfo = {
+/*export type RepoInfo = {
   id: string,
   name: string,
   lang?: string,
@@ -37,7 +47,7 @@ export type RepoInfo = {
   owner: string,
   description?: string | null,
   topics?: string[]
-}
+}*/
 
 //тип данных, получаемых от API при загрузку дополнительной информации о репозитории
 export type InfoResult = {

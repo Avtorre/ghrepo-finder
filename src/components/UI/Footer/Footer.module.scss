@@ -1,5 +1,7 @@
 .footer {
+  display: flex;
   width: 100%;
   height: 32px;
   background-color: #4F4F4F;
+  align-self: self-end;
 }
