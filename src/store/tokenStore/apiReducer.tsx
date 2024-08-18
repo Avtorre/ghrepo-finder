@@ -4,7 +4,7 @@ import { APIInfo, APIType, RepoItem } from "../../lib/types"
 
 //задаём тип данных и начальное значение
 const initialState: APIInfo = {
-  api: "REST",
+  api: "REST", //REST по умолчанию, т.к. может работать без токена
   token: ''
 }
 

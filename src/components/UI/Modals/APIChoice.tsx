@@ -14,6 +14,7 @@ const APIChoice = (props: {open:boolean, handleClose: () => void}) => {
     <>
       <Modal
         open={props.open}
+        onClose={() => props.handleClose()}
         disableAutoFocus={true}
         className={classes.modal}
       >
