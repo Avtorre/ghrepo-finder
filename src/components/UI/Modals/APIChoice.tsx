@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import classes from './APIChoice.module.css'
 import { useDispatch } from 'react-redux'
 import { setAPI, setToken } from '../../../store/tokenStore/apiReducer'
+import { setRepos } from '../../../store/resultsStore/resultsReducer'
 
+//модалка с выбором api
 const APIChoice = (props: {open:boolean, handleClose: () => void}) => {
   const [tokenModal, setTokenModal] = useState(false)
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -20,13 +22,14 @@ const APIChoice = (props: {open:boolean, handleClose: () => void}) => {
           <div className={classes.modal__btn}>
             <Button variant='contained' 
               onClick={() => {
-                dispath(setAPI('REST'))
+                dispatch(setAPI('REST'))
+                dispatch(setRepos([]))
                 props.handleClose()
               }}
             >REST</Button>
             <Button variant='contained' 
               onClick={() => {
-                dispath(setAPI('Graph'))
+                dispatch(setAPI('GraphQL'))
                 setTokenModal(true)
               }}
             >
@@ -39,24 +42,29 @@ const APIChoice = (props: {open:boolean, handleClose: () => void}) => {
       </Modal>
       <Modal
         open={tokenModal}
+        onClose={() => setTokenModal(false)}
         disableAutoFocus={true}
         className={classes.modal}
       >
         <div className={classes.modal__window}>
           <h3>Введите токен</h3>
-            <form 
-              className={classes.modal__btn} 
-              onSubmit={() => {
-                props.handleClose()
-                setTokenModal(false) 
-              }}
-              name='tokenForm'
-            >
-              <Input className={classes.token_input} placeholder='Введите токен...' onChange={(e) => dispath(setToken(e.target.value))} required/>
-              <Button variant='outlined' type='submit'>
-                OK
-              </Button>
-            </form>
+          <p className={classes.helper_text}> GH &gt; Settings &gt; Developer Settings</p>
+          <form 
+            className={classes.modal__btn} 
+            onSubmit={() => {
+              props.handleClose()
+              setTokenModal(false) 
+            }}
+            name='tokenForm'
+          >
+            <Input className={classes.token_input} placeholder='Введите токен...' onChange={(e) => dispatch(setToken(e.target.value))} required/>
+            <Button variant='contained' type='submit'>
+              OK
+            </Button>
+            <Button variant='outlined' onClick={() => setTokenModal(false)}>
+              Отмена
+            </Button>
+          </form>
         </div>
         
       </Modal>

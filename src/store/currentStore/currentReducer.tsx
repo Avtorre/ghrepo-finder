@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RepoItem } from "../../lib/types"
 
-//задаём тип данных в этом слайсе
+//задаём тип данных и начальное значение
 const initialState: RepoItem = {
   id: "",
   name: "",
@@ -12,6 +12,7 @@ const initialState: RepoItem = {
   owner: ""
 }
 
+//слайс, в котором хранится информация о выбранном репозитории
 const currentSlice = createSlice({
     name:'current', 
     initialState,

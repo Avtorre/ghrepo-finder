@@ -1,21 +1,18 @@
-import { useEffect, useState } from 'react'
-
-import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
-import { RepoItem, SearchResult } from '../lib/types'
-
 //для отпрваки запросов используется официальная библиотека GH (octokit) для работы с их API 
-const useFullInfo = () => {
-  const [response, setResponse] = useState<GraphQlQueryResponseData>()
-  const [error, setError] = useState()
-  
+import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
+import { RepoItem, RequestResult } from '../lib/types'
 
-  const getInfo: (row: RepoItem, token:string) => Promise<SearchResult> = async(row: RepoItem, token:string) =>{
+//хук, возвращающий запрос на дополнительную информацию о репозитории (GraphQL)
+const useFullInfo = () => {
+
+  const getInfo: (row: RepoItem, token:string) => Promise<RequestResult> = async(row: RepoItem, token:string) =>{
     const graphqlWithAuth = graphql.defaults({
       headers: {
-        authorization:`Bearer ${token}`,
+        authorization:`Bearer ${token}`, //добавляем токен в хедер запроса
       }
     })
     
+    //тело запроса
     return await graphqlWithAuth(`
     {
       repository(name: "${row.name}", owner: "${row.owner}") {
@@ -28,8 +25,9 @@ const useFullInfo = () => {
           }
         }
       }
-    }`) as unknown as Promise<SearchResult>
+    }`) as unknown as Promise<RequestResult>
   }
+  //возвращаем функцию отправки запроса 
   return {getInfo}
 }
 

@@ -1,28 +1,21 @@
-import { useEffect, useState } from 'react'
-
-import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
-import { SearchResult } from '../lib/types'
-import { useSelector } from 'react-redux'
-import { RootState } from '../store/store'
-
-
 //для отпрваки запросов используется официальная библиотека GH (octokit) для работы с их API 
-const useSearch = () => {
-  const [response, setResponse] = useState<GraphQlQueryResponseData>()
-  const [error, setError] = useState()
+import { graphql, GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql'
+import { RequestResult } from '../lib/types'
 
-  
-  //process.env.REACT_APP_GH_TOKEN
-  const search: (query: string, token:string) => Promise<SearchResult> = async(query:string, token:string) =>{
+//хук, возвращающий запрос на поиск репозиториев (GraphQL)
+const useSearch = () => {
+
+  const search: (query: string, token:string) => Promise<RequestResult> = async(query:string, token:string) =>{
     const graphqlWithAuth = graphql.defaults({
       headers: {
-        authorization:`token ${token}`,
+        authorization:`token ${token}`, //добавляем токен в хедер запроса
       }
     })
 
+    //тело запроса
     return await graphqlWithAuth(`
     {
-      search(type: REPOSITORY, query: "${query}", last: 100) {
+      search(type: REPOSITORY, query: "${query}", first: 100) {
         repos: edges {
           repo: node {
             ... on Repository {
@@ -41,8 +34,9 @@ const useSearch = () => {
           }
         }
       }
-    }`) as unknown as Promise<SearchResult>
+    }`) as unknown as Promise<RequestResult>
   }
+  //возвращаем функцию отправки запроса 
   return {search}
 }
 

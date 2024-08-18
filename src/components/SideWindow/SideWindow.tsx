@@ -3,7 +3,9 @@ import classes from './SideWindow.module.css'
 import { RepoItem } from '../../lib/types'
 import { Chip } from '@mui/material'
 
+//компонент выводящий информацию о репозитории в боковом окне
 const SideWindow = (props : {repo: RepoItem}) => {
+
   return (
     <div className={classes.window}>
       <h1>{props.repo.name}</h1>
@@ -11,7 +13,7 @@ const SideWindow = (props : {repo: RepoItem}) => {
         {(props.repo.lang) &&
           <Chip color='primary' label={props.repo.lang} className={classes.lang}/>
         }
-        
+      
         <div className={classes.stars}>
           <img src={`${process.env.PUBLIC_URL}/StarFilled.svg`} alt="star"/>
           <p>{props.repo.stars}</p>

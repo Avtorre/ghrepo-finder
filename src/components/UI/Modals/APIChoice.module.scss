@@ -4,7 +4,7 @@
     flex-direction: column;
     width: 20%;
     min-width: fit-content;
-    height: 18%;
+    height: 20%;
     position: absolute;
     top: 30%;
     left: 50%;
@@ -32,4 +32,16 @@
   }
 }
 
+.cancel {
+  display: inline-flex;
+  width: fit-content;
+}
+
+.helper_text {
+  width: fit-content;
+  display: inline-flex;
+  color: #4F4F4F;
+  font-size: small;
+  margin-bottom: 0;
+}
 

@@ -4,7 +4,7 @@
   width: 20%;
   min-width: -moz-fit-content;
   min-width: fit-content;
-  height: 18%;
+  height: 20%;
   position: absolute;
   top: 30%;
   left: 50%;
@@ -27,4 +27,19 @@
   display: flex;
   gap: 30px;
   margin: auto;
+}
+
+.cancel {
+  display: inline-flex;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.helper_text {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: inline-flex;
+  color: #4F4F4F;
+  font-size: small;
+  margin-bottom: 0;
 }/*# sourceMappingURL=APIChoice.module.css.map */
