@@ -30,6 +30,7 @@ const APIChoice = (props: {open:boolean, handleClose: () => void}) => {
             <Button variant='contained' 
               onClick={() => {
                 dispatch(setAPI('GraphQL'))
+                dispatch(setRepos([]))
                 setTokenModal(true)
               }}
             >
