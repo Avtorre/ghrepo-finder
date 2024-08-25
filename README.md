@@ -1,1 +1,1 @@
-Deployment on Vercel: https://ghrepo-finder-eight.vercel.app/
+Deployed on Vercel: https://ghrepo-finder-eight.vercel.app/
