@@ -1,6 +1,6 @@
 .main {
   width: 100%;
-  height: 100dvh;
+  min-height: 50vh;
   display: flex;
   max-height: fit-content;
   justify-content: center;
@@ -10,8 +10,8 @@
   display: flex;
   height: fit-content;
   font-size: 46px;
-  letter-spacing: .17px;
-  color: #4F4F4F;
+  letter-spacing: 0.17px;
+  color: #4f4f4f;
   font-weight: 400;
   text-align: center;
 }
